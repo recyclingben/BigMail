@@ -1,9 +1,10 @@
 #pragma once
+#include <stdint.h>
 #include <stdlib.h>
 #include "mail_box.h"
 
 typedef struct {
-    mail_box_MailBoxHead *mailboxes[256];
+    mail_box_MailBoxHead *mailboxes[(uint8_t)~0 + 1];
 } mail_sys_MailSys;
 
 mail_sys_MailSys *main_system_create();
