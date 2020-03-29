@@ -3,7 +3,6 @@
 
 typedef struct {
     int content_sizeof;
-    int content_allot;
 } mail_box_MailBoxHead;
 
 void mail_box_create(int content_sizeof,
