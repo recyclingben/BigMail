@@ -13,8 +13,8 @@ typedef struct {
 
 typedef struct {
     int content_sizeof;
-    mail_box_MailBoxEntryHead *_Atomic lagging;
-    mail_box_MailBoxEntryHead *_Atomic leading;
+    int _Atomic lagging;
+    int _Atomic leading;
 } mail_box_MailBoxHead;
 
 void mail_box_create(int content_sizeof,
@@ -25,6 +25,4 @@ void mail_box_create(int content_sizeof,
                      mail_box_MailBoxHead **out_mailbox)
 {
     *out_mailbox = calloc(1, sizeof(mail_box_MailBoxHead) + content_sizeof);
-    (*out_mailbox)->lagging = (mail_box_MailBoxEntryHead *)(*out_mailbox + 1);
-    (*out_mailbox)->leading = (mail_box_MailBoxEntryHead *)(*out_mailbox + 1);
 }
