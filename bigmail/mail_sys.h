@@ -13,6 +13,14 @@ void mail_system_define_mailbox(mail_sys_MailSys *system,
                                 char mailbox_name,
                                 int mailbox_content_sizeof);
 
+void mail_system_get_incoming(mail_sys_MailSys *system,
+                              char mailbox_name,
+                              mail_box_MailBoxHead **out_mailbox);
+
+void mail_system_get_outgoing(mail_sys_MailSys *system,
+                              char mailbox_name,
+                              mail_box_MailBoxHead **out_mailbox);
+
 
 void mail_system_create(mail_sys_MailSys **out_system)
 {
@@ -25,4 +33,18 @@ void mail_system_define_mailbox(mail_sys_MailSys *system,
 {
     mail_box_create(mailbox_content_sizeof,
                     &system->mailboxes[(int)mailbox_name]);
+}
+
+void mail_system_get_incoming(mail_sys_MailSys *system,
+                              char mailbox_name,
+                              mail_box_MailBoxHead **out_mailbox)
+{
+    *out_mailbox = system->mailboxes[(int)mailbox_name];
+}
+
+void mail_system_get_outgoing(mail_sys_MailSys *system,
+                              char mailbox_name,
+                              mail_box_MailBoxHead **out_mailbox)
+{
+    *out_mailbox = system->mailboxes[(int)mailbox_name];
 }
