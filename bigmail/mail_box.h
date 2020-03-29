@@ -6,10 +6,12 @@ typedef struct {
     int content_allot;
 } mail_box_MailBoxHead;
 
-mail_box_MailBoxHead *mail_box_create(int content_sizeof);
+void mail_box_create(int content_sizeof,
+                     mail_box_MailBoxHead **out_mailbox);
 
 
-mail_box_MailBoxHead *mail_box_create(int content_sizeof)
+void mail_box_create(int content_sizeof,
+                     mail_box_MailBoxHead **out_mailbox)
 {
-    return calloc(1, sizeof(mail_box_MailBoxHead) + content_sizeof);
+    *out_mailbox = calloc(1, sizeof(mail_box_MailBoxHead) + content_sizeof);
 }
