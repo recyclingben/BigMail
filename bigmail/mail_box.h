@@ -13,7 +13,7 @@ typedef struct {
 
 typedef struct {
     int content_sizeof;
-    int _Atomic lagging;
+    int lagging;
     int _Atomic leading;
 } mail_box_MailBoxHead;
 
