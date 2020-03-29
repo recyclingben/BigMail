@@ -8,10 +8,6 @@ typedef struct {
 
 mail_box_MailBoxHead *mail_box_create(int content_sizeof);
 
-mail_box_MailBoxHead *mail_box_bytes_zone_1(int content_sizeof);
-
-mail_box_MailBoxHead *mail_box_bytes_zone_2(int content_sizeof);
-
 
 mail_box_MailBoxHead *mail_box_create(int content_sizeof)
 {
