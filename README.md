@@ -7,7 +7,7 @@ Sample program for the curious:
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "mail.h"
+#include "bigmail/mail.h"
 
 
 typedef struct {
