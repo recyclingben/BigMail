@@ -54,11 +54,12 @@ void mail_box_incoming_open(mail_box_MailBoxHead *mailbox,
     mail_box_nth_entry(mailbox, mailbox->lagging, &entry);
 
     *out_content = NULL;
-    if (entry->live)
+    if (entry->live) {
         *out_content = offset(entry, sizeof(mail_box_MailBoxEntryHead));
+        ++mailbox->lagging;
+    }
 
     entry->live = false;
-    ++mailbox->lagging;
 }
 
 void mail_box_incoming_shut(mail_box_MailBoxHead *mailbox,
