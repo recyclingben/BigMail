@@ -22,10 +22,13 @@ void mail_box_incoming_open(mail_box_MailBoxHead *mailbox,
                             void **out_content);
 
 void mail_box_incoming_shut(mail_box_MailBoxHead *mailbox,
-                            void *content);
+                            void **content);
 
 void mail_box_outgoing_open(mail_box_MailBoxHead *mailbox,
                             void **out_content);
+
+void mail_box_outgoing_shut(mail_box_MailBoxHead *mailbox,
+                            void **content);
 
 void mail_box_nth_entry(mail_box_MailBoxHead *mailbox,
                         int n,
@@ -59,7 +62,7 @@ void mail_box_incoming_open(mail_box_MailBoxHead *mailbox,
 }
 
 void mail_box_incoming_shut(mail_box_MailBoxHead *mailbox,
-                            void *content)
+                            void **content)
 {
     /* This is only here for symmetry with outgoing operations. */
 }
@@ -72,10 +75,10 @@ void mail_box_outgoing_open(mail_box_MailBoxHead *mailbox,
 }
 
 void mail_box_outgoing_shut(mail_box_MailBoxHead *mailbox,
-                            void *content)
+                            void **content)
 {
     mail_box_MailBoxEntryHead *entry
-        = offset(content, -sizeof(mail_box_MailBoxEntryHead));
+        = offset(*content, -sizeof(mail_box_MailBoxEntryHead));
     entry->live = true;
 }
 
