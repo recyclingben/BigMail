@@ -2,6 +2,27 @@
 Stupid-simple header-only multi-producer-single-consumer queue system 
 for BigWorld (That's a lot of hyphens!). Fast and unsafe.
 
+## Structure
+Sets ("Mail Systems") of queues ("Mailboxes") are defined by unique 
+characters, and accessed as either producers ("Outgoing"), or consumers
+("Incoming"). Outgoing mailboxes can be accessed via multiple threads,
+whereas incoming mailboxes should only be accessed through a single
+thread.
+
+## Implementation
+Mailbox sizes are hardcoded to be 2^16. Content is stored in a single
+contiguous area, delimited by boolean values stating whether the 
+following element is ready to be read (or, "live") or not ("dead").
+
+When attempting to consume from an incoming mailbox, if the next
+element is live then the lagging pointer is incremented and the current
+value is consumed. The element is marked as dead later.
+
+When attempting to produce to an outgoing mailbox, the leading pointer
+is incremented atomically and the previous index is owned and produced
+later. The element is marked as live later as well.
+
+
 Sample program for the curious:
 ```
 #include <pthread.h>
@@ -71,23 +92,3 @@ int main()
     pthread_join(thread_2, NULL);
 }
 ```
-
-## Structure
-Sets ("Mail Systems") of queues ("Mailboxes") are defined by unique 
-characters, and accessed as either producers ("Outgoing"), or consumers
-("Incoming"). Outgoing mailboxes can be accessed via multiple threads,
-whereas incoming mailboxes should only be accessed through a single
-thread.
-
-## Implementation
-Mailbox sizes are hardcoded to be 2^16. Content is stored in a single
-contiguous area, delimited by boolean values stating whether the 
-following element is ready to be read (or, "live") or not ("dead").
-
-When attempting to consume from an incoming mailbox, if the next
-element is live then the lagging pointer is incremented and the current
-value is consumed. The element is marked as dead later.
-
-When attempting to produce to an outgoing mailbox, the leading pointer
-is incremented atomically and the previous index is owned and produced
-later. The element is marked as live later as well.
