@@ -57,9 +57,8 @@ static inline void mail_box_incoming_open(mail_box_MailBoxHead *mailbox,
     if (entry->live) {
         *out_content = offset(entry, sizeof(mail_box_MailBoxEntryHead));
         ++mailbox->lagging;
+        entry->live = false;
     }
-
-    entry->live = false;
 }
 
 static inline void mail_box_incoming_shut(mail_box_MailBoxHead *mailbox,
